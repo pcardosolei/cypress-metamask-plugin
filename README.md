@@ -4,6 +4,7 @@
 [![Release CI](https://github.com/Synthetixio/synpress/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/Synthetixio/synpress/actions/workflows/release.yml)
 [![Discord](https://img.shields.io/discord/961408653502599171.svg?color=768AD4&label=discord&logo=https%3A%2F%2Fdiscordapp.com%2Fassets%2F8c9701b98ad4372b58f13fd9f65f966e.svg)](https://discordapp.com/channels/961408653502599171/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/synpress_.svg?label=Synpress_&style=social)](https://twitter.com/Synpress_)
+
 #
 
 <p align="center">
@@ -58,10 +59,13 @@ project_dir
 
 ```js
 const path = require('path');
-const synpressPath = path.join(process.cwd(), '/node_modules/@synthetixio/synpress');
+const synpressPath = path.join(
+  process.cwd(),
+  '/node_modules/@synthetixio/synpress',
+);
 
 module.exports = {
-    extends: `${synpressPath}/.eslintrc.js`,
+  extends: `${synpressPath}/.eslintrc.js`,
 };
 ```
 
@@ -69,13 +73,19 @@ module.exports = {
 
 ```json
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "baseUrl": "../../node_modules",
-        "types": ["cypress", "@types/puppeteer-core", "@synthetixio/synpress/support", "cypress-wait-until", "@testing-library/cypress"],
-        "outDir": "./output"
-    },
-    "include": ["**/*.*"]
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "../../node_modules",
+    "types": [
+      "cypress",
+      "@types/puppeteer-core",
+      "@synthetixio/synpress/support",
+      "cypress-wait-until",
+      "@testing-library/cypress"
+    ],
+    "outDir": "./output"
+  },
+  "include": ["**/*.*"]
 }
 ```
 
@@ -188,12 +198,12 @@ Above actions will lead to:
 - New GitHub packages node module release
 - New GitHub release (tagged) created with changelog from commit messages
 
-
 ### Using on a cypress environment.
 
 - add the varibles on the cypress configuration environment.
 - setupMetamask on the files you intended to use metamask.
 
 ### Known Issues
- 
+
 CI/CD - setup metamask on beforeAll on the first test will cause failure.
+Work in Progress
