@@ -29,7 +29,7 @@ const {
 const {
   confirmationPageElements,
 } = require('../pages/metamask/confirmation-page');
-const { setNetwork, getNetwork } = require('../helpers');
+const { setNetwork, getNetwork } = require('../support/helpers');
 
 let walletAddress;
 let switchBackToCypressWindow;

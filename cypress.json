@@ -4,10 +4,6 @@
     "chromeWebSecurity": true,
     "viewportWidth": 1366,
     "viewportHeight": 768,
-    "component": {
-        "componentFolder": ".",
-        "testFiles": "**/*spec.{js,jsx,ts,tsx}"
-    },
     "env": {
         "coverage": false
     },

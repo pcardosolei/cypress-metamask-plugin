@@ -4,7 +4,7 @@ let retries = 0;
 
 module.exports = {
   getTransactionStatus: async txid => {
-    const { getNetwork } = require('../helpers');
+    const { getNetwork } = require('../support/helpers');
     const currentNetwork = getNetwork().networkName;
     const etherscanApi = require('etherscan-api').init(
       process.env.ETHERSCAN_KEY,

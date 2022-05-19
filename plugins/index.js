@@ -1,4 +1,4 @@
-const helpers = require('../helpers');
+const helpers = require('../support/helpers');
 const puppeteer = require('../commands/puppeteer');
 const metamask = require('../commands/metamask');
 const synthetix = require('../commands/synthetix');
