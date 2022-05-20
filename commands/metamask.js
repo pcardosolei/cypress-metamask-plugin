@@ -35,7 +35,6 @@ let walletAddress;
 let switchBackToCypressWindow;
 
 let accessAccepted = false;
-let setupMetamaskLogin = false;
 
 module.exports = {
   walletAddress: () => {
@@ -628,7 +627,6 @@ module.exports = {
     return walletAddress;
   },
   initialSetup: async ({ secretWordsOrPrivateKey, network, password }) => {
-    if(setupMetamaskLogin) { return true; }
     const isCustomNetwork =
       (process.env.NETWORK_NAME &&
         process.env.RPC_URL &&
@@ -680,13 +678,11 @@ module.exports = {
 
       walletAddress = await module.exports.getWalletAddress();
       await puppeteer.switchToCypressWindow();
-      setupMetamaskLogin = true;
       return true;
     } else {
       await module.exports.unlock(password);
       walletAddress = await module.exports.getWalletAddress();
       await puppeteer.switchToCypressWindow();
-      setupMetamaskLogin = true;
       return true;
     }
   },

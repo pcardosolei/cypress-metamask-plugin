@@ -1,6 +1,6 @@
 {
   "name": "cypress-metamask-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Cypress Metamask Plugin inspired in the Synpress package. A simplified version to included the synpress logic in the cypress without refactor needed",
   "keywords": [
     "Synpress",
