@@ -29,14 +29,14 @@ const optionsMenu = {
 const connectedSitesSelector = '.connected-sites';
 const connectedSites = {
   modal: connectedSitesSelector,
-  trashButton: `${connectedSitesSelector} .connected-sites-list__trash`,
+  trashButton: `${connectedSitesSelector} .connected-sites-list__content-row-link-button`,
   cancelButton: `${connectedSitesSelector} .btn-secondary`,
-  disconnectButton: `${connectedSitesSelector} .btn-primary`,
+  disconnectButton: `${connectedSitesSelector} .connected-sites__confirmation .btn-primary`,
   closeButton: `${connectedSitesSelector} [data-testid="popover-close"]`,
 };
 
 const accountModal = {
-  walletAddressInput: '.account-modal input',
+  walletAddressInput: '.account-modal .qr-code__address',
   closeButton: '.account-modal__close',
 };
 
@@ -55,7 +55,10 @@ const createAccount = {
   createButton: `${importAccountSelector} .btn-secondary`,
 };
 
+const defaultAddress = '.selected-account__address';
+
 module.exports.mainPageElements = {
+  defaultAddress,
   networkSwitcher,
   walletOverview,
   popup,

@@ -75,6 +75,20 @@ module.exports = {
       await module.exports.fixBlankPage();
       await puppeteer.waitAndType(unlockPageElements.passwordInput, password);
       await puppeteer.waitAndClick(unlockPageElements.unlockButton);
+      if (
+        (await puppeteer
+          .metamaskWindow()
+          .$(secureYourWalletPageElements.nextButton)) !== null
+      ) {
+        await puppeteer.waitAndClick(secureYourWalletPageElements.nextButton);
+      }
+      if (
+        (await puppeteer
+          .metamaskWindow()
+          .$(revealSeedPageElements.remindLaterButton)) !== null
+      ) {
+        await puppeteer.waitAndClick(revealSeedPageElements.remindLaterButton);
+      }
       await puppeteer.waitFor(mainPageElements.walletOverview);
       await module.exports.closePopup();
     }
@@ -105,9 +119,9 @@ module.exports = {
   importWallet: async (secretWords, password) => {
     await puppeteer.waitAndClick(firstTimeFlowPageElements.importWalletButton);
     await puppeteer.waitAndClick(metametricsPageElements.optOutAnalyticsButton);
-    await puppeteer.waitAndType(
+    await puppeteer.waitAndTypeAll(
       firstTimeFlowFormPageElements.secretWordsInput,
-      secretWords,
+      secretWords.split(' '),
     );
     await puppeteer.waitAndType(
       firstTimeFlowFormPageElements.passwordInput,
@@ -325,10 +339,13 @@ module.exports = {
         addNetworkPageElements.blockExplorerInput,
         network.blockExplorer,
       );
+      // hack for metamask 10.15.0
+      await puppeteer.metamaskWindow().keyboard.press('Space');
+      await puppeteer.metamaskWindow().keyboard.press('Backspace');
     }
 
     await puppeteer.waitAndClick(addNetworkPageElements.saveButton);
-    await puppeteer.waitAndClick(settingsPageElements.closeButton);
+    //await puppeteer.waitAndClick(settingsPageElements.closeButton);
 
     setNetwork(network);
 
@@ -381,7 +398,7 @@ module.exports = {
         mainPageElements.connectedSites.disconnectButton,
       );
     }
-
+    await puppeteer.waitAndClick(mainPageElements.connectedSites.closeButton);
     await switchToCypressIfNotActive();
     return true;
   },
@@ -459,7 +476,7 @@ module.exports = {
     return true;
   },
   acceptAccess: async allAccounts => {
-  try {
+    try {
       const notificationPage = await puppeteer.switchToMetamaskNotification();
 
       if (allAccounts === true) {
@@ -477,7 +494,6 @@ module.exports = {
         notificationPage,
       );
       await puppeteer.metamaskWindow().waitForTimeout(3000);
-
     } catch {
       // TODO: I need to check if the signature was not added.
     }
@@ -500,12 +516,6 @@ module.exports = {
         confirmPageElements.gasFeeInput,
         notificationPage,
       );
-    } else {
-      await puppeteer.waitAndClick(
-        confirmPageElements.gasFeeArrowUpButton,
-        notificationPage,
-        10,
-      );
     }
 
     if (gasConfig && gasConfig.gasLimit) {
@@ -515,16 +525,11 @@ module.exports = {
         notificationPage,
       );
     }
-    // metamask reloads popup after changing a fee, you have to wait for this event otherwise transaction will fail
-    await puppeteer.metamaskWindow().waitForTimeout(3000);
-    await notificationPage.waitForFunction(
-      `document.querySelector('${confirmPageElements.gasLimitInput}').value != "0"`,
-    );
+    await puppeteer.metamaskWindow().waitForTimeout(2000);
     await puppeteer.waitAndClick(
       confirmPageElements.confirmButton,
       notificationPage,
     );
-    await puppeteer.metamaskWindow().waitForTimeout(3000);
     return true;
   },
   rejectTransaction: async () => {
@@ -614,16 +619,9 @@ module.exports = {
   getWalletAddress: async () => {
     await switchToMetamaskIfNotActive();
 
-    await puppeteer.waitAndClick(mainPageElements.optionsMenu.button);
-    await puppeteer.waitAndClick(
-      mainPageElements.optionsMenu.accountDetailsButton,
-    );
     walletAddress = await puppeteer.waitAndGetValue(
-      mainPageElements.accountModal.walletAddressInput,
+      mainPageElements.defaultAddress,
     );
-    await puppeteer.waitAndClick(mainPageElements.accountModal.closeButton);
-
-    await switchToCypressIfNotActive();
 
     return walletAddress;
   },
@@ -635,7 +633,7 @@ module.exports = {
       typeof network == 'object';
 
     let successful = false;
-    let retriesInit = 3;
+    let retriesInit = 10;
     /*
      * Puppeteer sometimes fails on the first test.
      * this is an attempt to fix test it.
@@ -647,7 +645,7 @@ module.exports = {
         await puppeteer.assignActiveTabName('metamask');
 
         // sometimes it will fail here.
-        await puppeteer.metamaskWindow().waitForTimeout(1000);
+        await puppeteer.metamaskWindow().waitForTimeout(10000);
         successful = true;
       } catch {
         retriesInit = --retriesInit;
@@ -661,8 +659,11 @@ module.exports = {
       (await puppeteer.metamaskWindow().$(unlockPageElements.unlockPage)) ===
       null
     ) {
-      
-      if( (await puppeteer.metamaskWindow().$(welcomePageElements.confirmButton)) !== null) {
+      if (
+        (await puppeteer
+          .metamaskWindow()
+          .$(welcomePageElements.confirmButton)) !== null
+      ) {
         await module.exports.confirmWelcomePage();
         if (secretWordsOrPrivateKey.includes(' ')) {
           // secret words
@@ -679,8 +680,8 @@ module.exports = {
           await module.exports.changeNetwork(network);
         }
       }
-        walletAddress = await module.exports.getWalletAddress();
-        await puppeteer.switchToCypressWindow();
+      walletAddress = await module.exports.getWalletAddress();
+      await puppeteer.switchToCypressWindow();
       return true;
     } else {
       await module.exports.unlock(password);
