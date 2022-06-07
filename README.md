@@ -23,14 +23,14 @@ Import the plugin in `cypress/support/index.js`
 ```js
 // Import commands.js using ES2015 syntax:
 import './commands';
-import 'cypress-metamask-v2';
+import "cypress-metamask-plugin/support/commands";
 ```
 
 Modify your `cypress/plugins/index.js` to include the plugin:
 
 ```js
 module.exports = (on, config) => {
-  require('cypress-metamask-v2/cypress/plugins')(on);
+  require("cypress-metamask-plugin/plugins")(on, config);
 };
 ```
 
