@@ -101,4 +101,7 @@ describe('User can load page', () => {
 ### Known Issues
 
 CI/CD - setup metamask on beforeAll on the first test will cause failure.
-Work in Progress
+
+## Work in Progress
+- Reduce the time it takes to check if the element exists on the notifications.
+- Adding mock functions for the ethereum network.

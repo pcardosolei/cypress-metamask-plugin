@@ -1,6 +1,6 @@
 {
   "name": "cypress-metamask-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Cypress Metamask Plugin inspired in the Synpress package. A simplified version to included the synpress logic in the cypress without refactor needed",
   "keywords": [
     "Synpress",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pcardosolei/cypress-metamask-plugin/synpress.git"
+    "url": "https://github.com/pcardosolei/cypress-metamask-plugin.git"
   },
   "license": "MIT",
   "author": {
