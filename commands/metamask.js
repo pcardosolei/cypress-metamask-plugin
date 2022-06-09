@@ -84,18 +84,23 @@ module.exports = {
   },
   unlockNotification: async password => {
     const notificationPage = await puppeteer.switchToMetamaskNotification();
-    try {
-      await puppeteer.waitAndType(
-        unlockPageElements.passwordInput,
-        password,
-        notificationPage,
-      );
-      await puppeteer.waitAndClick(
-        unlockPageElements.unlockButton,
-        notificationPage,
-      );
-    } catch {
-      // TODO: I need to check if the signature was not added.
+    if (
+      (await puppeteer.metamaskWindow().$(unlockPageElements.passwordInput)) !==
+      null
+    ) {
+      try {
+        await puppeteer.waitAndType(
+          unlockPageElements.passwordInput,
+          password,
+          notificationPage,
+        );
+        await puppeteer.waitAndClick(
+          unlockPageElements.unlockButton,
+          notificationPage,
+        );
+      } catch {
+        // TODO: I need to check if the signature was not added.
+      }
     }
     return true;
   },
