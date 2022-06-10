@@ -465,7 +465,7 @@ module.exports = {
       return true;
     }
     if (
-      (await puppeteer.metamaskWindow().$(notificationPageElements.nextButton)) !==
+      (await puppeteer.metamaskWindow().$(permissionsPage)) !==
       null
     ) {
     try {
