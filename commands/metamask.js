@@ -464,33 +464,33 @@ module.exports = {
     if (accessAccepted) {
       return true;
     }
-    if (
-      (await puppeteer.metamaskWindow().$(permissionsPage)) !==
-      null
-    ) {
     try {
         const notificationPage = await puppeteer.switchToMetamaskNotification();
-        if (allAccounts === true) {
+        if (
+          (await puppeteer.metamaskWindow().$(permissionsPageElements.permissionsPage)) !==
+          null
+        ) {
+          if (allAccounts === true) {
+            await puppeteer.waitAndClick(
+              notificationPageElements.selectAllCheck,
+              notificationPage,
+            );
+          }
           await puppeteer.waitAndClick(
-            notificationPageElements.selectAllCheck,
+            notificationPageElements.nextButton,
             notificationPage,
           );
-        }
-        await puppeteer.waitAndClick(
-          notificationPageElements.nextButton,
-          notificationPage,
-        );
-        await puppeteer.waitAndClick(
-          permissionsPageElements.connectButton,
-          notificationPage,
-        );
-        await puppeteer.metamaskWindow().waitForTimeout(3000);
-        accessAccepted = true;
+          await puppeteer.waitAndClick(
+            permissionsPageElements.connectButton,
+            notificationPage,
+          );
+          await puppeteer.metamaskWindow().waitForTimeout(3000);
+          accessAccepted = true;
+          }
       } catch {
         // TODO: I need to check if the signature was not added.
       }
       return true;
-    }
   },
   confirmTransaction: async gasConfig => {
     const isKovanTestnet = getNetwork().networkName === 'kovan';
