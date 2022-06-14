@@ -34,8 +34,6 @@ const { setNetwork, getNetwork } = require('../support/helpers');
 let walletAddress;
 let switchBackToCypressWindow;
 
-let accessAccepted = false;
-
 module.exports = {
   walletAddress: () => {
     return walletAddress;
@@ -461,36 +459,29 @@ module.exports = {
     return true;
   },
   acceptAccess: async allAccounts => {
-    if (accessAccepted) {
-      return true;
-    }
-    try {
-        const notificationPage = await puppeteer.switchToMetamaskNotification();
-        if (
-          (await puppeteer.metamaskWindow().$(permissionsPageElements.permissionsPage)) !==
-          null
-        ) {
-          if (allAccounts === true) {
-            await puppeteer.waitAndClick(
-              notificationPageElements.selectAllCheck,
-              notificationPage,
-            );
-          }
-          await puppeteer.waitAndClick(
-            notificationPageElements.nextButton,
-            notificationPage,
-          );
-          await puppeteer.waitAndClick(
-            permissionsPageElements.connectButton,
-            notificationPage,
-          );
-          await puppeteer.metamaskWindow().waitForTimeout(3000);
-          accessAccepted = true;
-          }
-      } catch {
-        // TODO: I need to check if the signature was not added.
+  try {
+      const notificationPage = await puppeteer.switchToMetamaskNotification();
+
+      if (allAccounts === true) {
+        await puppeteer.waitAndClick(
+          notificationPageElements.selectAllCheck,
+          notificationPage,
+        );
       }
-      return true;
+      await puppeteer.waitAndClick(
+        notificationPageElements.nextButton,
+        notificationPage,
+      );
+      await puppeteer.waitAndClick(
+        permissionsPageElements.connectButton,
+        notificationPage,
+      );
+      await puppeteer.metamaskWindow().waitForTimeout(3000);
+
+    } catch {
+      // TODO: I need to check if the signature was not added.
+    }
+    return true;
   },
   confirmTransaction: async gasConfig => {
     const isKovanTestnet = getNetwork().networkName === 'kovan';
