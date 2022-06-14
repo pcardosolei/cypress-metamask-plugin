@@ -462,7 +462,7 @@ module.exports = {
   try {
       const notificationPage = await puppeteer.switchToMetamaskNotification();
       if (
-        (await puppeteer.metamaskWindow().$(permissionsPageElements.permissionsPage)) !==
+        (await puppeteer.metamaskWindow().$(notificationPageElements.nextButton)) !==
         null
       ) {
         if (allAccounts === true) {
