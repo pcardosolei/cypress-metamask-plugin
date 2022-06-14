@@ -461,28 +461,23 @@ module.exports = {
   acceptAccess: async allAccounts => {
   try {
       const notificationPage = await puppeteer.switchToMetamaskNotification();
-      // puppeteer going too fast breaks metamask in corner cases
-      await notificationPage.waitForTimeout(300);
-      if (
-        (await puppeteer.metamaskWindow().$(notificationPageElements.nextButton)) !==
-        null
-      ) {
-        if (allAccounts === true) {
-          await puppeteer.waitAndClick(
-            notificationPageElements.selectAllCheck,
-            notificationPage,
-          );
-        }
+
+      if (allAccounts === true) {
         await puppeteer.waitAndClick(
-          notificationPageElements.nextButton,
+          notificationPageElements.selectAllCheck,
           notificationPage,
         );
-        await puppeteer.waitAndClick(
-          permissionsPageElements.connectButton,
-          notificationPage,
-        );
-        await puppeteer.metamaskWindow().waitForTimeout(3000);
-        }
+      }
+      await puppeteer.waitAndClick(
+        notificationPageElements.nextButton,
+        notificationPage,
+      );
+      await puppeteer.waitAndClick(
+        permissionsPageElements.connectButton,
+        notificationPage,
+      );
+      await puppeteer.metamaskWindow().waitForTimeout(3000);
+
     } catch {
       // TODO: I need to check if the signature was not added.
     }
