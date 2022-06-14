@@ -461,6 +461,8 @@ module.exports = {
   acceptAccess: async allAccounts => {
   try {
       const notificationPage = await puppeteer.switchToMetamaskNotification();
+      // puppeteer going too fast breaks metamask in corner cases
+      await notificationPage.waitForTimeout(300);
       if (
         (await puppeteer.metamaskWindow().$(notificationPageElements.nextButton)) !==
         null
