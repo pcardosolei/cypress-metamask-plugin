@@ -37,7 +37,7 @@ const gasLimitArrowUpButton = `${confirmPageGasFeeSection} .advanced-gas-inputs_
 const gasLimitArrowDownButton = `${confirmPageGasFeeSection} .advanced-gas-inputs__gas-edit-row:nth-child(2) .advanced-gas-inputs__gas-edit-row__input-arrows__i-wrap:nth-child(2)`;
 const totalLabel = `${confirmPageContent} div:nth-child(2) > .confirm-detail-row .currency-display-component__text`;
 const rejectButton = `${confirmPageContent} [data-testid="page-container-footer-cancel"]`;
-const confirmButton = `${confirmPageContent} [data-testid="page-container-footer-next"]`;
+const confirmButton = `${confirmPageContent} [data-testid="page-container-footer-next"]:not([disabled])`;
 module.exports.confirmPageElements = {
   notificationPage,
   confirmPageHeader,

@@ -31,12 +31,12 @@ module.exports.resetAccountModalElements = {
 const addNetworkButton = '.networks-tab__body button';
 module.exports.networksPageElements = { addNetworkButton };
 
-const networkNameInput = '#network-name';
-const rpcUrlInput = '#rpc-url';
-const chainIdInput = '#chainId';
-const symbolInput = '#network-ticker';
-const blockExplorerInput = '#block-explorer-url';
-const saveButton = '.network-form__footer button:nth-child(2)';
+const networkNameInput = '.networks-tab__add-network-form-body .form-field:nth-child(1) input';
+const rpcUrlInput = '.networks-tab__add-network-form-body .form-field:nth-child(2) input';
+const chainIdInput = '.networks-tab__add-network-form-body .form-field:nth-child(3) input';
+const symbolInput = '.networks-tab__add-network-form-body .form-field:nth-child(4) input';
+const blockExplorerInput = '.networks-tab__add-network-form-body .form-field:nth-child(5) input';
+const saveButton = '.networks-tab__add-network-form-footer button:nth-child(2):not([disabled])';
 module.exports.addNetworkPageElements = {
   networkNameInput,
   rpcUrlInput,
