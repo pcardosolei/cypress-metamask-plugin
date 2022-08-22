@@ -117,8 +117,8 @@ module.exports = {
     return true;
   },
   importWallet: async (secretWords, password) => {
-    await puppeteer.waitAndClick(firstTimeFlowPageElements.importWalletButton);
     await puppeteer.waitAndClick(metametricsPageElements.optOutAnalyticsButton);
+    await puppeteer.waitAndClick(firstTimeFlowPageElements.importWalletButton);
     await puppeteer.waitAndTypeAll(
       firstTimeFlowFormPageElements.secretWordsInput,
       secretWords.split(' '),
@@ -139,8 +139,8 @@ module.exports = {
     return true;
   },
   createWallet: async password => {
-    await puppeteer.waitAndClick(firstTimeFlowPageElements.createWalletButton);
     await puppeteer.waitAndClick(metametricsPageElements.optOutAnalyticsButton);
+    await puppeteer.waitAndClick(firstTimeFlowPageElements.createWalletButton);
     await puppeteer.waitAndType(
       firstTimeFlowFormPageElements.newPasswordInput,
       password,
