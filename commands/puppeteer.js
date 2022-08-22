@@ -14,10 +14,12 @@ module.exports = {
     return mainWindow;
   },
   metamaskWindow: () => {
-    if (!metamaskWindow) {
+    if (!metamaskWindow && !puppeteerBrowser) {
       module.exports.init().then(() => {
         module.exports.assignWindows();
       });
+    } else if (!metamaskWindow) {
+      module.exports.assignWindows();
     }
     return metamaskWindow;
   },
