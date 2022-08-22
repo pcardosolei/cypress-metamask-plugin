@@ -707,6 +707,7 @@ module.exports = {
           await module.exports.importAccount(secretWordsOrPrivateKey);
         }
 
+        await module.exports.turnOnTestNetworks();
         if (isCustomNetwork) {
           await module.exports.addNetwork(network);
         } else {
@@ -714,8 +715,6 @@ module.exports = {
         }
       }
       walletAddress = await module.exports.getWalletAddress();
-      await module.exports.turnOnTestNetworks();
-
       await puppeteer.switchToCypressWindow();
       return true;
     } else {
