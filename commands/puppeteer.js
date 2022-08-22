@@ -14,6 +14,11 @@ module.exports = {
     return mainWindow;
   },
   metamaskWindow: () => {
+    if (!metamaskWindow) {
+      module.exports.init().then(() => {
+        module.exports.assignWindows();
+      });
+    }
     return metamaskWindow;
   },
   activeTabName: () => {
@@ -139,7 +144,9 @@ module.exports = {
     await module.exports.waitFor(selector, page);
     const elements = await page.$$(selector);
     if (elements.length != values.length) {
-      throw new Error('Number of elements found does not match do not match supplied values');
+      throw new Error(
+        'Number of elements found does not match do not match supplied values',
+      );
     }
     const inputs = elements.map((e, i) => [e, values[i]]);
     for (const [element, value] of inputs) {
