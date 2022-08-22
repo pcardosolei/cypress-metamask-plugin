@@ -43,20 +43,19 @@
     "@synthetixio/js": "2.41.0",
     "@testing-library/cypress": "8.0.3",
     "@testing-library/react": "13.3.0",
-    "@types/puppeteer-core": "5.4.0",
+    "@types/puppeteer-core": "^5.4.0",
     "@types/testing-library__cypress": "5.0.9",
     "axios": "0.27.2",
     "bytes32": "0.0.3",
     "cross-zip": "4.0.0",
     "cypress": "10.6.0",
     "cypress-wait-until": "1.7.2",
-    "etherscan-api": "10.0.5",
+    "etherscan-api": "10.2.0",
     "node-fetch": "2.6.1",
     "prettier": "2.7.1",
     "puppeteer-core": "16.2.0",
     "synthetix-js": "2.74.1"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=10"
   },

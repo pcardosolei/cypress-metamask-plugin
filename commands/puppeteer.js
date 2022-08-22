@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer-core');
+import puppeteer from 'puppeteer-core';
 const fetch = require('node-fetch');
 
 let puppeteerBrowser;
@@ -14,13 +14,6 @@ module.exports = {
     return mainWindow;
   },
   metamaskWindow: () => {
-    if (!metamaskWindow && !puppeteerBrowser) {
-      module.exports.init().then(() => {
-        module.exports.assignWindows();
-      });
-    } else if (!metamaskWindow) {
-      module.exports.assignWindows();
-    }
     return metamaskWindow;
   },
   activeTabName: () => {
