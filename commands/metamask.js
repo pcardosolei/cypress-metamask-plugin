@@ -586,7 +586,7 @@ module.exports = {
     await puppeteer.waitAndClick(settingsPageElements.advancedButton);
 
     try {
-      await puppeteer.waitAndClick(advancedPageElements.customNonceToggleOff);
+      await puppeteer.waitAndClick(advancedPageElements.testNetToggleOff);
     } catch {
       // it can be turned on already so
     }
@@ -601,7 +601,7 @@ module.exports = {
     await puppeteer.waitAndClick(settingsPageElements.advancedButton);
 
     try {
-      await puppeteer.waitAndClick(advancedPageElements.customNonceToggleOn);
+      await puppeteer.waitAndClick(advancedPageElements.testNetToggleOn);
     } catch {
       // it can be turned off already so
     }
@@ -720,6 +720,7 @@ module.exports = {
     } else {
       await module.exports.unlock(password);
       walletAddress = await module.exports.getWalletAddress();
+      await module.exports.turnOnTestNetworks();
       await puppeteer.switchToCypressWindow();
       return true;
     }
