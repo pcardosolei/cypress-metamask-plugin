@@ -642,13 +642,14 @@ module.exports = {
       try {
         await puppeteer.init();
         await puppeteer.assignWindows();
-        await puppeteer.fixBlankPage();
+        await module.exports.fixBlankPage();
         await puppeteer.assignActiveTabName('metamask');
 
         // sometimes it will fail here.
         await puppeteer.metamaskWindow().waitForTimeout(10000);
         successful = true;
-      } catch {
+      } catch (err) {
+        console.log(err);
         retriesInit = --retriesInit;
         if (retriesInit === 0) {
           throw new Error('Puppeteer failed to initialize the metamask wallet');
