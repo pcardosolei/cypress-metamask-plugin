@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer-core';
+const puppeteer = require('puppeteer-core');
 const fetch = require('node-fetch');
 
 let puppeteerBrowser;
