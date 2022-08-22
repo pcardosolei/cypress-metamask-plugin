@@ -25,7 +25,7 @@ Cypress.on('window:before:load', win => {
   });
 });
 
-Cypress.on('test:before:run', async spec => {
+Cypress.on('test:before:run', spec => {
   console.log(spec);
-  await init();
+  // await init();
 });
