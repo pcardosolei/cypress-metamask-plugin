@@ -23,3 +23,7 @@ Cypress.on('window:before:load', win => {
     cy.now('task', 'warn', message);
   });
 });
+
+Cypress.on('test:before:run', () => {
+  cy.initPuppeteer();
+});
