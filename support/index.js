@@ -1,5 +1,6 @@
 import './commands';
 import { configure } from '@testing-library/cypress';
+import { init } from '../commands/puppeteer';
 
 configure({ testIdAttribute: 'data-testid' });
 
@@ -25,5 +26,5 @@ Cypress.on('window:before:load', win => {
 });
 
 Cypress.on('test:before:run', () => {
-  cy.initPuppeteer();
+  init();
 });
