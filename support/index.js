@@ -1,6 +1,5 @@
 import './commands';
 import { configure } from '@testing-library/cypress';
-import { init } from '../commands/puppeteer';
 
 configure({ testIdAttribute: 'data-testid' });
 
