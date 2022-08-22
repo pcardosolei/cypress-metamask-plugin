@@ -578,6 +578,37 @@ module.exports = {
     await puppeteer.metamaskWindow().waitForTimeout(3000);
     return true;
   },
+  turnOnTestNetworks: async () => {
+    await switchToMetamaskIfNotActive();
+
+    await puppeteer.waitAndClick(mainPageElements.accountMenu.button);
+    await puppeteer.waitAndClick(mainPageElements.accountMenu.settingsButton);
+    await puppeteer.waitAndClick(settingsPageElements.advancedButton);
+
+    try {
+      await puppeteer.waitAndClick(advancedPageElements.customNonceToggleOff);
+    } catch {
+      // it can be turned on already so
+    }
+    await switchToCypressIfNotActive();
+    return true;
+  },
+  turnOffTestNetworks: async () => {
+    await switchToMetamaskIfNotActive();
+
+    await puppeteer.waitAndClick(mainPageElements.accountMenu.button);
+    await puppeteer.waitAndClick(mainPageElements.accountMenu.settingsButton);
+    await puppeteer.waitAndClick(settingsPageElements.advancedButton);
+
+    try {
+      await puppeteer.waitAndClick(advancedPageElements.customNonceToggleOn);
+    } catch {
+      // it can be turned off already so
+    }
+    await switchToCypressIfNotActive();
+    return true;
+  },
+
   allowToAddNetwork: async () => {
     const notificationPage = await puppeteer.switchToMetamaskNotification();
     await puppeteer.waitAndClick(
@@ -683,6 +714,8 @@ module.exports = {
         }
       }
       walletAddress = await module.exports.getWalletAddress();
+      await module.exports.turnOnTestNetworks();
+
       await puppeteer.switchToCypressWindow();
       return true;
     } else {
