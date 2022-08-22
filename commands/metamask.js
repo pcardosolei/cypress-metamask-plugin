@@ -642,6 +642,7 @@ module.exports = {
       try {
         await puppeteer.init();
         await puppeteer.assignWindows();
+        await puppeteer.fixBlankPage();
         await puppeteer.assignActiveTabName('metamask');
 
         // sometimes it will fail here.
