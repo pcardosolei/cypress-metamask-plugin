@@ -24,8 +24,3 @@ Cypress.on('window:before:load', win => {
     cy.now('task', 'warn', message);
   });
 });
-
-Cypress.on('before:spec', async spec => {
-  console.log(spec);
-  await init();
-});
