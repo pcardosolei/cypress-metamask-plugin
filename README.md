@@ -1,3 +1,7 @@
+# Important
+
+## I'm not maintaining this anymore. [Synpress](https://github.com/Synthetixio/synpress) is good enough for the job.
+
 # Cypress MetaMask
 
 Interacting with you MetaMask made "easy". (Depending on how you define "easy" of course...)
